@@ -19,6 +19,9 @@ class ImageFrame:
         self.label.bind("<Enter>", self._on_mouse_over)
         self.label.bind("<Leave>", self._on_mouse_leave)
 
+    def remove(self):
+        self.label.place_forget()
+
     def _center_position(self, pos):
         center_x = pos[0] + int((self.size - self.imgTk.width())/2)
         center_y = pos[1] + int((self.size - self.imgTk.height())/2)
@@ -29,6 +32,7 @@ class ImageFrame:
         self.label.place(x=self.pos[0], y=self.pos[1])
 
     def _on_mouse_over(self, event):
+        # Fazer ser do centro pra fora
         highlight_size = int(self.size*1.05)
         self.imgTk = ImageTk.PhotoImage(self.resize_img_to_frame(self.image, highlight_size))
         self.label.configure(image=self.imgTk)
