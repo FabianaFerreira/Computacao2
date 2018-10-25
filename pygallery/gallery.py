@@ -1,6 +1,6 @@
 import os
 import re
-from PIL import ImageTk,Image
+from PIL import Image
 from tkinter import BOTH, Menu
 from tkinter.ttk import Frame, Style
 from tkinter.filedialog import askdirectory, askopenfilenames
@@ -76,9 +76,8 @@ class Gallery(Frame):
 
     def addImage(self, image_path):
         # TRATAR CASO DE GRID CHEIA
-        image = Image.open(image_path)
         pos = self._get_frame_pos(len(self.image_frames))
-        img_frame = ImageFrame(self, image, pos=pos,
+        img_frame = ImageFrame(self, image_path, pos=pos,
                                size=self.frame_size)
         self.image_frames.append(img_frame)
 

@@ -1,13 +1,14 @@
 from tkinter import *
-from PIL import ImageTk,Image
+from PIL import ImageTk, Image
 
 class ImageFrame:
-    def __init__(self, gallery, image, pos, size):
+    def __init__(self, gallery, image_path, pos, size):
         if (not isinstance(pos, tuple)):
             raise TypeError('`pos` must be a tuple (x, y).')
 
         self.gallery = gallery
-        self.image = image
+        self.image_path = image_path
+        self.image = Image.open(image_path)
         self.size = size
 
         self.imgTk = ImageTk.PhotoImage(self.resize_img_to_frame(self.image, self.size))
