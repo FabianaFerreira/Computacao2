@@ -3,7 +3,7 @@ sys.path.append(os.path.realpath("pygallery/"))
 
 from tkinter import *
 from pygallery import Gallery
-from pygallery.filters import BWFilter
+from pygallery.filters import *
 
 image_folder = os.path.realpath("images/")
 
@@ -44,12 +44,13 @@ import numpy as np
 
 # root.mainloop()
 
-bw_filter = BWFilter() 
+img = io.imread(image_folder + '/chocolate.jpg')/255.0
+gotham_filter = GothamFilter() 
+img_new = gotham_filter.apply(img)
 
-img = io.imread(image_folder + '/landscape.jpg')/255.0
-r, g, b = bw_filter.get_image_channels(img)
-r_interp = bw_filter.interpolate_channel(r, [0, 0.8, 1.0])
-img_new = bw_filter.merge_channels(r_interp, g, b)
+# r, g, b = bw_filter.get_image_channels(img)
+# r_interp = bw_filter.interpolate_channel(r, [0, 0.8, 1.0])
+# img_new = bw_filter.merge_channels(r_interp, g, b)
 fig, axs = plt.subplots(1, 2)
 axs[0].imshow(img)
 axs[1].imshow(img_new)
