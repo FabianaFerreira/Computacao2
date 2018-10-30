@@ -44,9 +44,9 @@ import numpy as np
 
 # root.mainloop()
 
-img = io.imread(image_folder + '/chocolate.jpg')/255.0
-gotham_filter = GothamFilter() 
-img_new = gotham_filter.apply(img)
+img = io.imread(image_folder + '/landscape.jpg')/255.0
+filter = GothamFilter() 
+img_new = filter.apply(img)
 
 # r, g, b = bw_filter.get_image_channels(img)
 # r_interp = bw_filter.interpolate_channel(r, [0, 0.8, 1.0])

@@ -1,5 +1,8 @@
 from skimage.filters import gaussian
+from skimage.color import rgb2hsv
 import numpy as np
+
+import matplotlib.pyplot as plt
 
 class Filter:
 	def __init__(self):
@@ -14,6 +17,13 @@ class Filter:
 		blue_channel = image[:, :, 2]
 		return red_channel, green_channel, blue_channel
 
+	def get_image_hsv(self, image):
+		image_hsv = rgb2hsv(image)
+		hue = image_hsv[:, :, 0]
+		saturation = image_hsv[:, :, 1]
+		vibrance = image_hsv[:, :, 2]
+		return hue, saturation, vibrance
+
 	def merge_channels(self, red, green, blue):
 		return np.stack([red, green, blue], axis=2)
 
@@ -27,4 +37,10 @@ class Filter:
 		interpolated = np.interp(flat_matrix,
 			                     np.linspace(0, 1.0, len(values)),
 			                     values)
+
+		# fig = plt.figure()
+		# plt.plot(np.linspace(0, 1.0, len(values)), np.linspace(0, 1.0, len(values)))
+		# plt.plot(np.linspace(0, 1.0, len(values)), values)
+		# plt.show()
+
 		return interpolated.reshape(channel_shape)
