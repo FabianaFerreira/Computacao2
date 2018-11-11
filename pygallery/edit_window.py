@@ -41,7 +41,7 @@ class EditWindow:
         btn = Button(window, text="BW", command=lambda: self.apply_filter("bw"))
         btn.pack(side=BOTTOM)
 
-        btn = Button(window, text="Brno", command=lambda: self.apply_filter("brno"))
+        btn = Button(window, text="PyeongChang", command=lambda: self.apply_filter("pyeongchang"))
         btn.pack(side=BOTTOM)
 
     def apply_filter(self, filter_name):

@@ -120,5 +120,5 @@ class Gallery(Frame):
     def open_edit_window(self, image_path):
         #print(image_path)
         window = Toplevel(self)
-        window.attributes('-fullscreen', True)
+        window.attributes('-zoomed', True)
         edit_window_obj = EditWindow(window, image_path)
