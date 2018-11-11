@@ -1,5 +1,9 @@
-# Computacao2
-Repositório com o objetivo de criar aulas com os conteúdos abordados em Computação 2, na UFRJ
+# PyGallery
+Projeto final desenvolvido para a matéria Computação 2, da Escola Politécnica da Universidade Federal do Rio de Janeiro.
+
+
+# Conteúdos adicionas
+Ao longo das aulas ministradas, criamos notebooks do Jupyter com o conteúdo abordado em sala de aula, para deixarmos como referência para futuros alunos.
 
 ## Aula 1
 Apenas revisão de conhecimentos de Python que são abordados em Computação 1, como dicionários, listas e etc.
