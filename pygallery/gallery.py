@@ -1,11 +1,12 @@
 import os
 import re
 from PIL import Image
-from tkinter import BOTH, Menu
+from tkinter import BOTH, Menu, Toplevel
 from tkinter.ttk import Frame, Style
 from tkinter.filedialog import askdirectory, askopenfilenames
 
 from image_frame import ImageFrame
+from edit_window import EditWindow
 
 def get_images_from_list(file_list):
         img_regex = re.compile('.+\.(jpg|png)$')
@@ -27,7 +28,7 @@ class Gallery(Frame):
 
         menubar = Menu(self.master)
         self.master.config(menu=menubar)
-        
+
         fileMenu = Menu(menubar, tearoff=0)
         fileMenu.add_command(label="Abrir imagem...", command=self.open_files)
         fileMenu.add_command(label="Abrir pasta...", command=self.open_folder)
@@ -35,7 +36,7 @@ class Gallery(Frame):
 
         # self._setup_grid()
 
-        # 
+        #
         self.bind("<Configure>", self._on_resize)
 
     # def _setup_grid(self):
@@ -115,3 +116,9 @@ class Gallery(Frame):
             image_frame.remove()
             del image_frame
         self.image_frames = []
+
+    def open_edit_window(self, image_path):
+        #print(image_path)
+        window = Toplevel(self)
+        window.attributes('-fullscreen', True)
+        edit_window_obj = EditWindow(window, image_path)

@@ -6,6 +6,7 @@ from skimage import color
 class ViennaFilter(Filter):
 	def __init__(self):
 		super().__init__()
+		self.name = 'Vienna'
 
 	def apply(self, image):
 		h, s, v = self.get_image_hsv(image)
@@ -16,4 +17,3 @@ class ViennaFilter(Filter):
 		sharp = self.sharpen(color.hsv2rgb(new_img), a=0.9, b=0.05, sigma=10)
 
 		return sharp
-		

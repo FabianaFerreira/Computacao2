@@ -9,6 +9,8 @@ jupyter = "*"
 [packages]
 pillow = "*"
 scikit-image = "*"
+numpy = "*"
+screeninfo = "*"
 
 [requires]
 python_version = "3.6"
