@@ -16,8 +16,8 @@ dentro das mesmas, assim como exercícios para exemplificar a implementação.
 Aplicação dos conceitos estudados anteriormente sobre classes, de forma a introduzir novos conhecimentos, como o encapsulamento e
 também a herança de classes.
 
-##Aula 4
+## Aula 4
 Nessa aula, utilizamos o conceito de exceção para tratar erros de entrada de usuário e afins.
 
-##Aula 5
+## Aula 5
 Introdução à arquivos e utilização de conhecimentos adquiridos ao longo do curso, como o uso de exceções.
