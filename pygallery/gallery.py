@@ -82,7 +82,6 @@ class Gallery(Frame):
                                size=self.frame_size)
         self.image_frames.append(img_frame)
 
-    # CHECAR SE A LISTA DE IMAGENS ESTÁ VAZIA
     def open_folder(self):
         folder = askdirectory(title='Selecione a pasta que contém suas imagens:')
         if (not folder):
@@ -99,7 +98,6 @@ class Gallery(Frame):
             print('Nenhuma imagem encontrada')
 
 
-    # CHECAR SE A LISTA DE IMAGENS ESTÁ VAZIA
     def open_files(self):
         file_list =  list(askopenfilenames(title="Selecione a(s) imagem(ns):",
                                            filetypes=[("Arquivos JPEG, PNG","*.jpg *.png")]))
@@ -124,5 +122,6 @@ class Gallery(Frame):
     def open_edit_window(self, image_path):
         #print(image_path)
         window = Toplevel(self)
-        window.attributes('-zoomed', True)
+        window.geometry("1280x768")
+        window.update_idletasks() 
         edit_window_obj = EditWindow(window, image_path)

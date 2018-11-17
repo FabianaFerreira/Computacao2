@@ -2,8 +2,6 @@ from skimage.filters import gaussian
 from skimage.color import rgb2hsv
 import numpy as np
 
-import matplotlib.pyplot as plt
-
 class Filter:
 	def __init__(self):
 		pass
@@ -37,10 +35,5 @@ class Filter:
 		interpolated = np.interp(flat_matrix,
 			                     np.linspace(0, 1.0, len(values)),
 			                     values)
-
-		# fig = plt.figure()
-		# plt.plot(np.linspace(0, 1.0, len(values)), np.linspace(0, 1.0, len(values)))
-		# plt.plot(np.linspace(0, 1.0, len(values)), values)
-		# plt.show()
 
 		return interpolated.reshape(channel_shape)
