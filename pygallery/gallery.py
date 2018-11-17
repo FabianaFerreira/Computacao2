@@ -85,6 +85,8 @@ class Gallery(Frame):
     # CHECAR SE A LISTA DE IMAGENS ESTÁ VAZIA
     def open_folder(self):
         folder = askdirectory(title='Selecione a pasta que contém suas imagens:')
+        if (not folder):
+            return
         file_list = os.listdir(folder)
         image_list = [folder + "/" + image for image in get_images_from_list(file_list)]
         if (image_list):
@@ -99,8 +101,10 @@ class Gallery(Frame):
 
     # CHECAR SE A LISTA DE IMAGENS ESTÁ VAZIA
     def open_files(self):
-        file_list =  list(askopenfilenames(title = "Selecione a(s) imagem(ns):",
-                                           filetypes = [("Arquivos JPEG, PNG","*.jpg *.png")]))
+        file_list =  list(askopenfilenames(title="Selecione a(s) imagem(ns):",
+                                           filetypes=[("Arquivos JPEG, PNG","*.jpg *.png")]))
+        if (not file_list):
+            return
         image_list = get_images_from_list(file_list)
         if (image_list):
             if (self.image_frames):

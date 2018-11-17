@@ -22,7 +22,8 @@ class ImageFrame:
         self.label = Label(self.gallery, image=self.imgTk)
         self.label.image = self.imgTk
         self.pos = self.__center_position(pos)
-        self.label.place(x=self.pos[0], y=self.pos[1])
+        #self.label.place(x=self.pos[0], y=self.pos[1])
+        self.label.grid(row=self.pos[0], column=self.pos[1], sticky=W+E+N+S)
 
         if (hover):
             self.label.bind("<Enter>", self.__on_mouse_over)
