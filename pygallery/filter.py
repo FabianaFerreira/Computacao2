@@ -19,8 +19,8 @@ class Filter:
 		image_hsv = rgb2hsv(image)
 		hue = image_hsv[:, :, 0]
 		saturation = image_hsv[:, :, 1]
-		vibrance = image_hsv[:, :, 2]
-		return hue, saturation, vibrance
+		value = image_hsv[:, :, 2]
+		return hue, saturation, value
 
 	def merge_channels(self, red, green, blue):
 		return np.stack([red, green, blue], axis=2)

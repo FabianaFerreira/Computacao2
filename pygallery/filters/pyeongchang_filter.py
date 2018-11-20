@@ -11,10 +11,6 @@ class PyeongChangFilter(Filter):
 	def apply(self, image):
 		r, g, b = self.get_image_channels(image)
 
-		# Boost red mid-tones
-		# interp_vector = [0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.8, 0.9, 0.95, 1.0]
-		# r_boost_lower = self.interpolate_channel(r, interp_vector)
-
 		# Make blue a bit bluer
 		bluer_img = self.merge_channels(r, g, np.clip(b + 0.3, 0, 1.0))
 
