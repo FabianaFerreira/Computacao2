@@ -18,8 +18,6 @@ class EditWindow:
 
         self.width = window.winfo_width()
         self.height = window.winfo_height()
-        print(self.width)
-
 
         self.frame_size = int((self.width - 3*margin)/2)
 
