@@ -1,4 +1,4 @@
-from tkinter import Button, Frame, LEFT, RIGHT, BOTTOM
+from tkinter import *
 from tkinter.ttk import Style
 from tkinter.filedialog import asksaveasfilename
 
@@ -37,36 +37,43 @@ class EditWindow:
                                         hover=False,
                                         clickable=False)
 
+        # Add the filter buttons
         self.__add_filter_buttons()
 
-        buttons_frame = Frame(self.window, width=self.frame_size, height=100,
-                              bd=5, padx=10, pady=10)
-        buttons_frame.place(x=self.frame_size + self.margin/2.0,
-                            y=self.frame_size + self.margin/2.0)
-        #buttons_frame.pack(side=BOTTOM)
-        btn = Button(buttons_frame, text="Salvar como", command=self.save)
-        btn.pack(side=RIGHT)
+        # Add the save and cancel buttons
+        buttons_frame = Frame(self.window, width=self.frame_size, height=100)
+        buttons_frame.configure(background="#333")
+        buttons_frame.place(x=int(self.frame_size*1.5) + int(self.margin/2.0) + 25,
+                            y=self.frame_size + int(self.margin/2.0))
 
-        btn = Button(buttons_frame, text="Cancelar", command=self.close)
+        btn = Button(buttons_frame, text="Salvar como",
+                     width=10, command=self.save)
+        btn.pack()
+
+        btn = Button(buttons_frame, text="Cancelar",
+                     width=10, command=self.close)
         btn.pack()
 
     def __add_filter_buttons(self):
-        filters_frame = Frame(self.window, width=self.frame_size, height=100,
-                              bd=5, padx=10, pady=10)
-        filters_frame.place(x=self.margin, y=self.frame_size + self.margin/2.0)
+        filters_frame = Frame(self.window, width=self.frame_size, height=100)
+        filters_frame.configure(background="#333")
+        filters_frame.place(x=self.margin + 50, y=self.frame_size + int(self.margin/2.0))
 
-        columns = 8
+        columns = 4
         for index, filter in enumerate(filter_list):
             row = int(index/columns)
             column = int(index % columns)
             btn = Button(filters_frame, text=filter.name,
+                         width=10,
                          command=lambda filter=filter: self.__apply_filter(filter))
-            btn.grid(row=row, column=column, ipadx=5)
+            btn.grid(row=row, column=column, ipadx=10)
 
+    # Apply the selected filter to the image
     def __apply_filter(self, filter):
         filt_image = filter.apply(self.originalFrame.image)
         self.filteredFrame.set_image(filt_image)
 
+    # Save the filtered image
     def save(self):
         initial_dir = dirname(self.image_path)
         filename = asksaveasfilename(initialdir=initial_dir,
@@ -74,7 +81,8 @@ class EditWindow:
                                      filetypes=[("Arquivos JPEG, PNG","*.jpg *.png")])
         if (filename):
             io.imsave(filename, self.filteredFrame.image)
-            self.window.destroy()
+            self.close()
 
+    # Close the edit window
     def close(self):
         self.window.destroy()

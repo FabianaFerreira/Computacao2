@@ -1,7 +1,7 @@
 import os
 import re
 from PIL import Image
-from tkinter import BOTH, Menu, Toplevel
+from tkinter import BOTH, Menu, Toplevel, messagebox
 from tkinter.ttk import Frame, Style
 from tkinter.filedialog import askdirectory, askopenfilenames
 
@@ -29,59 +29,63 @@ class Gallery(Frame):
         menubar = Menu(self.master)
         self.master.config(menu=menubar)
 
+        # Add menu options to open image or folder
         fileMenu = Menu(menubar, tearoff=0)
         fileMenu.add_command(label="Abrir imagem...", command=self.open_files)
         fileMenu.add_command(label="Abrir pasta...", command=self.open_folder)
         menubar.add_cascade(label="Arquivo", menu=fileMenu)
 
-        # self._setup_grid()
-
-        #
+        # Window resize event
         self.bind("<Configure>", self._on_resize)
 
-    # def _setup_grid(self):
-    #     for i in range(self.grid[0]):
-    #         self.rowconfigure(i, pad=self.frame_sep)
-
-    #     for i in range(self.grid[1]):
-    #         self.columnconfigure(i, pad=self.frame_sep)
-
     def _get_frame_pos(self, index):
+        # If the grid is full, add one more line
+        if (index >= (self.grid[0] * self.grid[1])):
+            self.grid = (self.grid[0] + 1, self.grid[1])
+
+        # Calculate the row and column indexes
         row = int(index/self.grid[1])
         column = int(index % self.grid[1])
-        #return (grid_x, grid_y)
+
+        # Calculate the image position based on its indexes
         x_pos = int((self.frame_size + self.frame_sep) * column) + self.margin
         y_pos = int((self.frame_size + self.frame_sep) * row) + self.margin
         return (x_pos, y_pos)
 
     def _adjust_images_to_grid(self):
+        # Recalculate the image positions based on the grid size
         for idx, img_frame in enumerate(self.image_frames):
             pos = self._get_frame_pos(idx)
             img_frame.set_pos(pos)
 
     def _on_resize(self, event):
+        # Calculate the new amount of columns based on the window size
         width = event.width - 2*self.margin
         frames_w = int(width/self.frame_size)
         sep_w = int((width-frames_w*self.frame_size)/self.frame_sep)
         grid_columns = frames_w + (0 if sep_w >= (frames_w-1) else -1)
 
+        # Calculate the new amount of rows based on the window size
         heigth = event.height - 2*self.margin
         frames_h = int(heigth/self.frame_size)
         sep_h = int((heigth-frames_h*self.frame_size)/self.frame_sep)
         grid_rows = frames_h + (0 if sep_h >= (frames_h-1) else -1)
 
         new_grid = (grid_rows, grid_columns)
+        # If the new_grid is different from the current one,
+        # then adjust the images to the new grid
         if (new_grid != self.grid):
             self.grid = new_grid
             self._adjust_images_to_grid()
 
+    # Add an ImageFrame with the image specified by `image_path`
     def addImage(self, image_path):
-        # TRATAR CASO DE GRID CHEIA
         pos = self._get_frame_pos(len(self.image_frames))
         img_frame = ImageFrame(self, image_path, pos=pos,
                                size=self.frame_size)
         self.image_frames.append(img_frame)
 
+    # Open a folder containing images and add them to the grid
     def open_folder(self):
         folder = askdirectory(title='Selecione a pasta que contém suas imagens:')
         if (not folder):
@@ -95,9 +99,10 @@ class Gallery(Frame):
             for image in image_list:
                 self.addImage(image)
         else:
-            print('Nenhuma imagem encontrada')
+            messagebox.showerror("Erro",
+                                 "Nenhuma imagem encontrada na pasta selecionada.")
 
-
+    # Open one or multiple images and add them to the grid
     def open_files(self):
         file_list =  list(askopenfilenames(title="Selecione a(s) imagem(ns):",
                                            filetypes=[("Arquivos JPEG, PNG","*.jpg *.png")]))
@@ -111,17 +116,19 @@ class Gallery(Frame):
             for image in image_list:
                 self.addImage(image)
         else:
-            print('Nenhuma imagem encontrada')
+            messagebox.showerror("Erro",
+                                 "Nenhum arquivo de imagem foi selecionado.")
 
+    # Delete all the images from the grid
     def clearGallery(self):
         for image_frame in self.image_frames:
             image_frame.remove()
             del image_frame
         self.image_frames = []
 
+    # Open the edit window upon clicking on an image
     def open_edit_window(self, image_path):
-        #print(image_path)
         window = Toplevel(self)
         window.geometry("1280x768")
-        window.update_idletasks() 
+        window.update_idletasks()
         edit_window_obj = EditWindow(window, image_path)
